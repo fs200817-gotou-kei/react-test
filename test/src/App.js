@@ -1,4 +1,5 @@
 import TemperatureAppHeader from "./ui/components/TemperatureAppHeader";
+import TemperatureCrudPage from "./ui/components/TemperatureCrudPage";
 
 function App() {
   const name = "Dave"
