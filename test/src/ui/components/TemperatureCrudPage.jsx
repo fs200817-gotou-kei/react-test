@@ -1,15 +1,21 @@
-import daygrid from "@fullcalendar/daygrid"
-import FullCalendar from "@fullcalendar/react"
+import React from 'react'
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 
-function TemperatureCrudPage() {
-    return (
-        <div>
+export default class TemperatureCrudPage extends React.Component {
+
+    render() {
+        return (
             <FullCalendar
-                plugins={[daygrid]}
-                initialView="dayGridMonth"
+                plugins={[dayGridPlugin, interactionPlugin]}
+                dateClick={this.handleDateClick}
             />
-        </div>
-    )
-}
+        )
+    }
 
-export default TemperatureCrudPage
+    handleDateClick = (arg) => { // bind with an arrow function
+        alert(arg.dateStr)
+    }
+
+}
