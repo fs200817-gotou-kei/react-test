@@ -7,8 +7,6 @@ import { useState } from 'react'
 import Modal from 'react-modal'
 
 // TODO:
-// モーダルウインドウ作成
-// clickしたときにモーダル表示
 // ボタン押したら配列に対応追加
 // crud
 // リファクタリング
@@ -16,12 +14,17 @@ function TemperatureCrudPage() {
     const [events, setEvents] = useState([{ start: '2023-03-01', end: '2023-03-02' }])
     const [modalIsOpen, setIsOpen] = useState(false)
     const [selectDate, setSelectDate] = useState('')
+    const fullCalendar = React.createRef()
 
     const dateClickHandle = (arg) => {
         console.log('dateClickHandle')
-        setEvents([...events, { start: '2023-03-06', end: '2023-03-07' }, { start: '2023-03-10', end: '2023-03-11' }])
+        // setEvents([...events, { start: '2023-03-06', end: '2023-03-07' }, { start: '2023-03-10', end: '2023-03-11' }])
         setIsOpen(true)
         setSelectDate(arg.dateStr)
+        const calendarApi = fullCalendar.current.getApi()
+        console.log(calendarApi.getDate())
+        calendarApi.addEvent({ start: '2023-03-04', end: '2023-03-06' })
+        // fullCalendar.current.getApi().addEvent(events[{ start: '2023-03-04', end: '2023-03-06' }])
     }
 
     function closeModal() {
@@ -33,6 +36,7 @@ function TemperatureCrudPage() {
     return (
         <div>
             < FullCalendar
+                ref={fullCalendar}
                 plugins={[dayGridPlugin, interactionPlugin]}
                 events={events}
                 dateClick={dateClickHandle}
@@ -42,14 +46,21 @@ function TemperatureCrudPage() {
                 onRequestClose={closeModal}
                 contentLabel="Example Modal"
                 style={{
+                    overlay: {
+                        zIndex: 100,
+                    },
                     content: {
-                        backgroundColor: "white"
+                        margin: 'auto',
+                        backgroundColor: "white",
+                        width: 200,
+                        height: 100
                     }
                 }}
             >
                 <form>
                     <label>{selectDate}の体温</label>
                     <input type="text" />
+                    <input type="submit" value="作成" />
                 </form>
             </Modal>
             {/* <ModalWindow /> */}
