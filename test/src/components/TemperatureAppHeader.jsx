@@ -1,25 +1,24 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Button } from '@mui/material'
-import { Link } from 'react-router-dom'
 import EditIcon from '@mui/icons-material/Edit'
 import ShowChart from '@mui/icons-material/ShowChart'
+import AppConstants from '../constants/AppConstants'
 
-
-// TODO: Link toもちょっと長くてわかりづらい
-function TemperatureAppHeader() {
+// アプリで使用される基本的なヘッダーコンポーネント
+const TemperatureAppHeader = () => {
     return (
-        <div>
-            <Link to="/">
-                <Button variant='outlined' startIcon={<EditIcon />}>
-                    対応記録
-                </Button>
-            </Link>
-            <Link to="/temperatures">
-                <Button variant='outlined' startIcon={<ShowChart />}>
-                    グラフ
-                </Button>
-            </Link>
-        </div >
+        <Fragment>
+
+            {/* 体温管理カレンダーへ遷移するボタン */}
+            <Button href={AppConstants.TEMPERATURE_CRUD_PAGE_PATH} variant='outlined' startIcon={<EditIcon />}>
+                {AppConstants.TEMPERATURE_CRUD_PAGE_NAME}
+            </Button>
+
+            {/* グラフ画面へ遷移するボタン */}
+            <Button href={AppConstants.TEMPERATURE_GRAPH_PAGE_PATH} variant='outlined' startIcon={<ShowChart />}>
+                {AppConstants.TEMPERATURE_GRAPH_PAGE_NAME}
+            </Button>
+        </Fragment>
     )
 }
 
